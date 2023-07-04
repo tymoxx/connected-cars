@@ -6,7 +6,7 @@ import {markerInterface, markersInterface} from "../App";
 export const Map = ({markers, setMarkers}: {
     markers: markersInterface,
     setMarkers: (markers: markersInterface) => void,
-}) => {
+}): React.ReactElement => {
 
     const updateMarkers = (markers: markerInterface[]) => {
         const updatedMarkers = markers.map((marker) => ({
