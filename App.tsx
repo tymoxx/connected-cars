@@ -1,9 +1,10 @@
 import {StatusBar} from 'expo-status-bar';
-import {StyleSheet, View} from 'react-native';
-import MapView, {Marker} from 'react-native-maps';
-import React, {useEffect, useState} from "react";
+import {StyleSheet, Text} from 'react-native';
+import React, {useState} from "react";
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import {Map} from "./components/Map";
 
-interface markerInterface {
+export type markerInterface = {
     latlng: {
         latitude: number,
         longitude: number,
@@ -12,60 +13,37 @@ interface markerInterface {
     description: string,
 }
 
-interface markersInterface {
-    markers: markerInterface[],
-}
+export type markersInterface = markerInterface[];
 
-export default function App() {
-    const [marker, setMarker] = useState<markerInterface>({
+const initialMarkers: markersInterface = [
+    {
         latlng: {
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: 55.64652,
+            longitude: 12.53991,
         },
         title: 'title',
-        description: 'descr',
-    });
-
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setMarker((prevMarker) => ({
-                latlng: {
-                    latitude: prevMarker.latlng.latitude + (Math.random() - 0.5) * 0.01,
-                    longitude: prevMarker.latlng.longitude + (Math.random() - 0.5) * 0.01,
-                },
-                title: prevMarker.title,
-                description: prevMarker.description
-            }))
-        }, 200);
-        return () => clearInterval(interval);
-    }, []);
+        description: 'description',
+    },
+    {
+        latlng: {
+            latitude: 55.64252,
+            longitude: 12.53991,
+        },
+        title: 'title',
+        description: 'description',
+    },
+]
+export default function App() {
+    const [markers, setMarkers] = useState<markersInterface>(initialMarkers);
 
     return (
-        <View style={styles.container}>
-            <StatusBar style="auto"/>
-
-            <MapView
-                style={styles.map}
-                initialRegion={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-            >
-                <Marker
-                    coordinate={marker.latlng}
-                    title={marker.title}
-                    description={marker.description}
-                />
-                <Marker
-                    coordinate={marker.latlng}
-                    title={marker.title}
-                    description={marker.description}
-                />
-            </MapView>
-        </View>
+        <SafeAreaProvider style={styles.container}>
+            <SafeAreaView>
+                <StatusBar style="auto"/>
+                <Text style={styles.name}>Connected Cars</Text>
+                <Map markers={markers} setMarkers={setMarkers}/>
+            </SafeAreaView>
+        </SafeAreaProvider>
     );
 }
 
@@ -75,8 +53,13 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         flex: 1,
     },
-    map: {
-        height: 50,
-        flex: 1,
+    name: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginVertical: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#620070',
     }
 });
