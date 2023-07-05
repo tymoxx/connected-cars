@@ -1,14 +1,14 @@
 import MapView, {Marker} from "react-native-maps";
 import React, {useEffect} from "react";
 import {StyleSheet} from "react-native";
-import {markerInterface, markersInterface} from "../App";
+import {markerType, markersType} from "../App";
 
 export const Map = ({markers, setMarkers}: {
-    markers: markersInterface,
-    setMarkers: (markers: markersInterface) => void,
+    markers: markersType,
+    setMarkers: (markers: markersType) => void,
 }): React.ReactElement => {
 
-    const updateMarkers = (markers: markerInterface[]) => {
+    const updateMarkers = (markers: markerType[]) => {
         const updatedMarkers = markers.map((marker) => ({
             ...marker,
             latlng: {
@@ -37,7 +37,7 @@ export const Map = ({markers, setMarkers}: {
                 longitudeDelta: 0.0421,
             }}
         >
-            {markers.map((marker: markerInterface) => (
+            {markers.map((marker: markerType) => (
                 <Marker
                     coordinate={marker.latlng}
                     title={marker.title}

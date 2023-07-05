@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {Map} from "./components/Map";
 
-export type markerInterface = {
+export type markerType = {
     latlng: {
         latitude: number,
         longitude: number,
@@ -13,9 +13,9 @@ export type markerInterface = {
     description: string,
 }
 
-export type markersInterface = markerInterface[];
+export type markersType = markerType[];
 
-const initialMarkers: markersInterface = [
+const initialMarkers: markersType = [
     {
         latlng: {
             latitude: 55.64652,
@@ -34,7 +34,7 @@ const initialMarkers: markersInterface = [
     },
 ]
 export default function App() {
-    const [markers, setMarkers] = useState<markersInterface>(initialMarkers);
+    const [markers, setMarkers] = useState<markersType>(initialMarkers);
 
     return (
         <SafeAreaProvider style={styles.container}>
